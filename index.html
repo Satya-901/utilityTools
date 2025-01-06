@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility Tools Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        /* Styling for autocomplete suggestions dropdown */
+        .autocomplete-suggestions {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 9999;
+            width: calc(100% - 2px); /* Ensure it matches the input width */
+            box-sizing: border-box;
+            display: none; /* Hidden by default */
+        }
+
+        .autocomplete-suggestions li {
+            padding: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .autocomplete-suggestions li:hover {
+            background-color: #f5f5f5;
+            padding-left: 15px;
+        }
+
+        .autocomplete-suggestions li.active {
+            background-color: #007bff;
+            color: white;
+            padding-left: 15px;
+        }
+
+        /* Styling for the no results message */
+        .no-results {
+            color: red;
+            font-weight: bold;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        #searchInput {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #searchInput:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Make sure the search bar is positioned correctly */
+        header {
+            margin-bottom: 30px;
+        }
+
+        .cal-head {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="#">Utility Tools</a>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTools()" autocomplete="off">
+                    <ul id="autocompleteResults" class="autocomplete-suggestions"></ul>
+                    <p id="noResults" class="no-results">No results found.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tool Cards Section -->
+    <section class="tool-cards">
+        <div class="card">
+            <a href="./Calculator.html" class="cal-head">
+                <div class="card-icon">📱</div>
+                <h4>Calculator</h4>
+                <p>Perform quick and accurate arithmetic operations.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./TodoList.html" class="cal-head">
+                <div class="card-icon">✔️</div>
+                <h4>To-Do List</h4>
+                <p>Organize tasks and boost productivity.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./UnitConverter.html" class="cal-head">
+                <div class="card-icon">↔️</div>
+                <h4>Unit Converter</h4>
+                <p>Convert between various units like length, weight, and temperature.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./WeatherChecker.html" class="cal-head">
+                <div class="card-icon">🌦️</div>
+                <h4>Weather Checker</h4>
+                <p>Stay updated with real-time weather information for any location.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./PasswordGenerator.html" class="cal-head">
+                <div class="card-icon">🔒</div>
+                <h4>Password Generator</h4>
+                <p>Generate strong, secure passwords.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./RondomQuote.html" class="cal-head">
+                <div class="card-icon">💬</div>
+                <h4>Random Quote</h4>
+                <p>Find daily inspiration with a fresh motivational quote.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./TextEditor.html" class="cal-head">
+                <div class="card-icon">📑</div>
+                <h4>Text Formatter</h4>
+                <p>Format your text with options like case conversion and whitespace trimming.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./ImageCompressor.html" class="cal-head">
+                <div class="card-icon">📸</div>
+                <h4>Image Compressor</h4>
+                <p>Optimize image size without compromising quality.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./CurrencyConverter.html" class="cal-head">
+                <div class="card-icon">💰</div>
+                <h4>Currency Converter</h4>
+                <p>Convert currencies in real-time using live exchange rates.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./NoteTextEditor.html" class="cal-head">
+                <div class="card-icon">📝</div>
+                <h4>Notes and Text Editor</h4>
+                <p>Write and save notes with rich-text formatting and local storage.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./TimerStopWatch.html" class="cal-head">
+                <div class="card-icon">⏲️</div>
+                <h4>Timer and Stopwatch</h4>
+                <p>Manage time effectively with a simple yet functional timer and stopwatch.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./QrCode.html" class="cal-head">
+                <div class="card-icon">🔳</div>
+                <h4>QR Code Generator</h4>
+                <p>Create QR codes for URLs, text, or other data.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./HealthBmi.html" class="cal-head">
+                <div class="card-icon">🏋️‍♀️</div>
+                <h4>Health BMI Calculator</h4>
+                <p>Calculate your Body Mass Index to monitor your health and fitness goals.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./WorldClock.html" class="cal-head">
+                <div class="card-icon">🌍</div>
+                <h4>World Clock</h4>
+                <p>Display the current time in multiple cities worldwide.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="./Dictionary.html" class="cal-head">
+                <div class="card-icon">📚</div>
+                <h4>Dictionary and Thesaurus</h4>
+                <p>Look up definitions, synonyms, and antonyms instantly.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2024 Utility Tools | All rights reserved</p>
+        <p>Contact | Privacy Policy | Terms of Service</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to search tools and display autocomplete suggestions
+        function searchTools() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-cards .card');
+            const autocompleteResults = document.getElementById('autocompleteResults');
+            const noResults = document.getElementById('noResults');
+            let matchingResults = 0;
+
+            // Clear autocomplete suggestions
+            autocompleteResults.innerHTML = '';
+
+            // Loop through each card and filter based on the search input
+            cards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchInput) || description.includes(searchInput)) {
+                    card.style.display = ''; // Show card
+                    matchingResults++;
+
+                    // Add to autocomplete suggestions
+                    const suggestion = document.createElement('li');
+                    suggestion.textContent = title;
+                    suggestion.onclick = () => {
+                        document.getElementById('searchInput').value = suggestion.textContent;
+                        searchTools();
+                    };
+                    autocompleteResults.appendChild(suggestion);
+                } else {
+                    card.style.display = 'none'; // Hide card
+                }
+            });
+
+            // Show or hide autocomplete box based on matching results
+            if (matchingResults > 0) {
+                autocompleteResults.style.display = 'block';
+            } else {
+                autocompleteResults.style.display = 'none';
+            }
+
+            // Show the no results message if no matches
+            if (matchingResults === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        // Handling arrow navigation and selection within the suggestions
+        let activeIndex = -1;
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            const suggestions = document.querySelectorAll('.autocomplete-suggestions li');
+            if (e.key === 'ArrowDown') {
+                activeIndex = Math.min(activeIndex + 1, suggestions.length - 1);
+                updateActiveSuggestion(suggestions, activeIndex);
+            } else if (e.key === 'ArrowUp') {
+                activeIndex = Math.max(activeIndex - 1, 0);
+                updateActiveSuggestion(suggestions, activeIndex);
+            } else if (e.key === 'Enter') {
+                if (activeIndex > -1) {
+                    suggestions[activeIndex].click();
+                }
+            }
+        });
+
+        function updateActiveSuggestion(suggestions, index) {
+            suggestions.forEach(suggestion => suggestion.classList.remove('active'));
+            if (suggestions[index]) {
+                suggestions[index].classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

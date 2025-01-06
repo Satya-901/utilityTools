@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm w-50">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <input type="text" id="newTodo" class="form-control me-2" placeholder="Add a new task">
+            <button class="btn btn-success" onclick="addTodo()">Add</button>
+        </div>
+        <ul class="list-group list-group-flush" id="todoList"></ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const todoList = document.getElementById('todoList');
+
+        // Load tasks from local storage when the page loads
+        document.addEventListener('DOMContentLoaded', loadTodos);
+
+        function saveTodos() {
+            const tasks = [];
+            document.querySelectorAll('#todoList li').forEach(item => {
+                tasks.push({
+                    text: item.querySelector('span.task-text').textContent,
+                    completed: item.classList.contains('list-group-item-success'),
+                    date: item.querySelector('span.task-date').textContent
+                });
+            });
+            localStorage.setItem('todos', JSON.stringify(tasks));
+        }
+
+        function loadTodos() {
+            const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+            savedTodos.forEach(todo => {
+                addTodoToDOM(todo.text, todo.completed, todo.date);
+            });
+        }
+
+        function addTodo() {
+            const newTodoInput = document.getElementById('newTodo');
+            const task = newTodoInput.value.trim();
+            if (!task) return;
+
+            const date = new Date().toLocaleDateString('en-GB'); 
+            addTodoToDOM(task, false, date);
+            saveTodos();
+            newTodoInput.value = '';
+        }
+
+        function addTodoToDOM(task, completed, date) {
+            const todoItem = document.createElement('li');
+            todoItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            if (completed) {
+                todoItem.classList.add('list-group-item-success');
+            }
+
+            const taskText = document.createElement('span');
+            taskText.textContent = task;
+            taskText.className = 'task-text';
+
+            const taskDate = document.createElement('span');
+            taskDate.textContent = date;
+            taskDate.className = 'task-date text-muted ms-3';
+
+            const buttonGroup = document.createElement('div');
+
+            const toggleButton = document.createElement('button');
+            toggleButton.textContent = completed ? 'Incomplete' : 'Complete';
+            toggleButton.className = 'btn btn-sm btn-primary me-2';
+            toggleButton.onclick = () => {
+                toggleComplete(todoItem);
+                saveTodos();
+            };
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.className = 'btn btn-sm btn-warning me-2';
+            editButton.onclick = () => {
+                editTask(todoItem, taskText);
+                saveTodos();
+            };
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'btn btn-sm btn-danger';
+            deleteButton.onclick = () => {
+                deleteTask(todoItem);
+                saveTodos();
+            };
+
+            buttonGroup.appendChild(toggleButton);
+            buttonGroup.appendChild(editButton);
+            buttonGroup.appendChild(deleteButton);
+
+            const taskContainer = document.createElement('div');
+            taskContainer.className = 'd-flex align-items-center';
+            taskContainer.appendChild(taskText);
+            taskContainer.appendChild(taskDate);
+
+            todoItem.appendChild(taskContainer);
+            todoItem.appendChild(buttonGroup);
+            todoList.appendChild(todoItem);
+        }
+
+        function toggleComplete(todoItem) {
+            todoItem.classList.toggle('list-group-item-success');
+            const toggleButton = todoItem.querySelector('.btn-primary');
+            toggleButton.textContent = todoItem.classList.contains('list-group-item-success') ? 'Incomplete' : 'Complete';
+        }
+
+        function editTask(todoItem, taskText) {
+            const newTask = prompt('Edit your task:', taskText.textContent);
+            if (newTask !== null && newTask.trim() !== '') {
+                taskText.textContent = newTask.trim();
+            }
+        }
+
+        function deleteTask(todoItem) {
+            todoList.removeChild(todoItem);
+        }
+    </script>
+</body>
+
+</html>
